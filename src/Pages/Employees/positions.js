@@ -134,7 +134,7 @@ const EmployeePositions = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.positions) {
+    if (props.positions && props.positions[0]) {
       setPositions(props.positions);
       setPosition(props.positions[0]["mn"].name);
     }
