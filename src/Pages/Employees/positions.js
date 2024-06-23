@@ -12,7 +12,7 @@ import { toastControl } from "../../lib/toasControl";
 import Loader from "../../Components/Generals/Loader";
 import base from "../../base";
 import { Select, Tree } from "antd";
-import { menuGenerateData } from "src/lib/menuGenerate";
+import { useCookies } from "react-cookie";
 
 const EmployeePositions = (props) => {
   // States
@@ -20,6 +20,7 @@ const EmployeePositions = (props) => {
   const [position, setPosition] = useState(null);
   const [positions, setPositions] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cookies] = useCookies(["language"]);
 
   // Functions
   const init = () => {
@@ -29,6 +30,29 @@ const EmployeePositions = (props) => {
       clear();
     };
   };
+  const menuGenerateData = (categories) => {
+    let datas = [];
+    if (categories) {
+      categories.map((el) => {
+        datas.push({
+          title:
+            el[cookies.language] && el[cookies.language].name ? (
+              el[cookies.language].name
+            ) : (
+              <span className="red-color">
+                {el[cookies.language === "eng" ? "mn" : "eng"] &&
+                  el[cookies.language === "eng" ? "mn" : "eng"].name}
+              </span>
+            ),
+          key: el._id,
+          children: el.children && menuGenerateData(el.children),
+        });
+      });
+    }
+
+    return datas;
+  };
+
   const clear = () => {
     props.clear();
   };
