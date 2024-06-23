@@ -435,7 +435,6 @@ const Edit = (props) => {
                           <Form.Item
                             label="Мэдээний хураангуй"
                             name="shortDetails"
-                            rules={[requiredRule]}
                           >
                             <TextArea> </TextArea>
                           </Form.Item>
