@@ -121,7 +121,10 @@ const EmployeePositions = (props) => {
     const sendData = {
       data: data,
     };
-    props.changePosition(sendData);
+    props.changePosition(
+      sendData,
+      `positions=${position}&sort=position:descend`
+    );
     setGData(data);
   };
 
@@ -240,7 +243,8 @@ const mapDispatchToProp = (dispatch) => {
   return {
     loadPositions: () => dispatch(loadPositions()),
     loadEmployee: (query) => dispatch(actions.loadEmployee(query)),
-    changePosition: (data) => dispatch(actions.changePosition(data)),
+    changePosition: (data, query) =>
+      dispatch(actions.changePosition(data, query)),
     clear: () => dispatch(actions.clear()),
   };
 };
