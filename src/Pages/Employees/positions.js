@@ -123,7 +123,7 @@ const EmployeePositions = (props) => {
     };
     props.changePosition(
       sendData,
-      `positions=${position}&sort=position:descend`
+      `positions=${position}&sort=position:ascend`
     );
     setGData(data);
   };
