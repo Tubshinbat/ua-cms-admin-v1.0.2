@@ -274,7 +274,7 @@ const Add = (props) => {
                             name="phoneNumber"
                             hasFeedback
                           >
-                            <InputNumber
+                            <Input
                               placeholder="Утасны дугаараа оруулна уу"
                               style={{ width: "100%" }}
                             />

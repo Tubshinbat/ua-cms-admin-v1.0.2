@@ -433,6 +433,15 @@ const Edit = (props) => {
                         </div>
                         <div className="col-12">
                           <Form.Item
+                            label="Мэдээний хураангуй"
+                            name="shortDetails"
+                            rules={[requiredRule]}
+                          >
+                            <TextArea> </TextArea>
+                          </Form.Item>
+                        </div>
+                        <div className="col-12">
+                          <Form.Item
                             label="Мэдээний дэлгэрэнгүй"
                             name="details"
                             getValueFromEvent={(e) =>
@@ -445,15 +454,17 @@ const Edit = (props) => {
                               init={{
                                 height: 300,
                                 menubar: false,
+                                lineheight_formats:
+                                  "8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 36pt",
                                 plugins: [
                                   "advlist autolink lists link image  tinydrive charmap print preview anchor",
                                   "searchreplace visualblocks code fullscreen",
-                                  "insertdatetime media table paste code help wordcount image media  code  table  ",
+                                  "insertdatetime media table paste code help wordcount image media  code  table lineheight ",
                                 ],
                                 toolbar:
                                   "mybutton image | undo redo | fontselect fontsizeselect formatselect blockquote  | bold italic backcolor | \
                         alignleft aligncenter alignright alignjustify | \
-                        bullist numlist outdent indent | removeformat | help | link  | quickbars | media | code | tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+                        bullist numlist outdent indent | removeformat | help | link  | quickbars | media | code | tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol lineheightselect",
                                 tinydrive_token_provider: `${base.apiUrl}users/jwt`,
                                 file_picker_types: "image",
                                 automatic_uploads: false,
