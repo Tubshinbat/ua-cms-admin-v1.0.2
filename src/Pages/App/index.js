@@ -52,6 +52,7 @@ import PartnerEdit from "../Partner/Edit";
 import Employee from "../Employees";
 import EmployeeAdd from "../Employees/Add";
 import EmployeeEdit from "../Employees/Edit";
+import EmployeePostion from "../Employees/positions";
 //Books
 import Book from "../Book";
 import BookAdd from "../Book/Add";
@@ -140,6 +141,7 @@ function App(props) {
               <Route path="/employees/edit/:id" component={EmployeeEdit} />
               <Route path="/employees/add" component={EmployeeAdd} />
               <Route path="/employees" exact component={Employee} />
+              <Route path="/employee-position" component={EmployeePostion} />
               <Route path="/position" exact component={Position} />
               //Book
               <Route path="/books/edit/:id" component={BookEdit} />

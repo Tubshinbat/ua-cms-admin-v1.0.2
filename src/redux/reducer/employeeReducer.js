@@ -20,6 +20,33 @@ const reducer = (state = initialState, action) => {
         success: null,
       };
 
+    case "EMPLOYEE_CHANGE_POSITION_START":
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        success: null,
+        employees: [],
+      };
+
+    case "EMPLOYEE_CHANGE_POSITION_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        success: null,
+        employees: action.employees,
+      };
+
+    case "EMPLOYEE_CHANGE_POSITION_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+        success: null,
+        employees: [],
+      };
+
     case "LOAD_EMPLOYEE_START":
       return {
         ...state,

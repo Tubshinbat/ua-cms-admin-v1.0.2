@@ -11,6 +11,10 @@ const subItems = [
     key: "/employees",
   },
   {
+    label: "Ажилчидын дараалал",
+    key: "/employee-position",
+  },
+  {
     label: "Нэгж алба, тэнхим",
     key: "/position",
   },

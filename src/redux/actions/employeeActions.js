@@ -26,6 +26,45 @@ export const clear = () => {
   };
 };
 
+// Change Positions
+export const changePosition = (data, query) => {
+  return function (dispatch) {
+    dispatch(changePositionStart());
+
+    axios
+      .post("employees/change", data)
+      .then((responsive) => {
+        const result = responsive.data.data;
+        dispatch(changePositionSuccess(result));
+        dispatch(loadEmployee(query));
+      })
+      .catch((error) => {
+        const resultError = errorBuild(error);
+        dispatch(changePositionError(resultError));
+      });
+  };
+};
+
+export const changePositionStart = (result) => {
+  return {
+    type: "EMPLOYEE_CHANGE_POSITION_START",
+  };
+};
+
+export const changePositionSuccess = (data) => {
+  return {
+    type: "EMPLOYEE_CHANGE_POSITION_SUCCESS",
+    employees: data,
+  };
+};
+
+export const changePositionError = (error) => {
+  return {
+    type: "EMPLOYEE_CHANGE_POSITION_ERROR",
+    error,
+  };
+};
+
 // SAVE EMPLOYEE
 export const saveEmployeeInit = () => {
   return {
