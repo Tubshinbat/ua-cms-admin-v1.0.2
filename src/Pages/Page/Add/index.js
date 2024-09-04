@@ -192,31 +192,46 @@ const Add = (props) => {
   };
 
   // -- TREE FUNCTIONS
-  const onCheckMenu = (values, info) => {
-    const { checkedNodesPositions } = info;
-    const newCheckedKeys = checkedNodesPositions
-      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
-      .map(({ node }) => node.key);
+  const onCheckMenu = (checkedKeysValue, info) => {
+    const { checked, node } = info;
 
-    setCheckedMenu(newCheckedKeys);
+    if (!node.isLeaf) {
+      if (checked) {
+        setCheckedPosition([node.key]);
+      } else {
+        setCheckedPosition([]);
+      }
+    } else {
+      setCheckedMenu(checkedKeysValue);
+    }
   };
 
-  const onCheckFooterMenu = (values, info) => {
-    const { checkedNodesPositions } = info;
-    const newCheckedKeys = checkedNodesPositions
-      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
-      .map(({ node }) => node.key);
+  const onCheckFooterMenu = (checkedKeysValue, info) => {
+    const { checked, node } = info;
 
-    setCheckedFooterMenu(newCheckedKeys);
+    if (!node.isLeaf) {
+      if (checked) {
+        setCheckedPosition([node.key]);
+      } else {
+        setCheckedPosition([]);
+      }
+    } else {
+      setCheckedFooterMenu(checkedKeysValue);
+    }
   };
 
-  const onCheckPosition = (values, info) => {
-    const { checkedNodesPositions } = info;
-    const newCheckedKeys = checkedNodesPositions
-      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
-      .map(({ node }) => node.key);
+  const onCheckPosition = (checkedKeysValue, info) => {
+    const { checked, node } = info;
 
-    setCheckedPosition(newCheckedKeys);
+    if (!node.isLeaf) {
+      if (checked) {
+        setCheckedPosition([node.key]);
+      } else {
+        setCheckedPosition([]);
+      }
+    } else {
+      setCheckedPosition(checkedKeysValue);
+    }
   };
 
   // Useeffect
