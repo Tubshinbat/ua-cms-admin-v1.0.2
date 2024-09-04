@@ -192,7 +192,7 @@ const Add = (props) => {
   };
 
   // -- TREE FUNCTIONS
-  const onCheckMenu = (values) => {
+  const onCheckMenu = (values, info) => {
     const { node } = info;
 
     if (!node.isLeaf) {
@@ -202,7 +202,7 @@ const Add = (props) => {
     }
   };
 
-  const onCheckFooterMenu = (values) => {
+  const onCheckFooterMenu = (values, info) => {
     const { node } = info;
 
     if (!node.isLeaf) {
