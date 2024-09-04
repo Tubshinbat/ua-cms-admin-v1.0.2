@@ -197,9 +197,9 @@ const Add = (props) => {
 
     if (!node.isLeaf) {
       if (checked) {
-        setCheckedPosition([node.key]);
+        setCheckedMenu([node.key]);
       } else {
-        setCheckedPosition([]);
+        setCheckedMenu([]);
       }
     } else {
       setCheckedMenu(checkedKeysValue);
@@ -211,9 +211,9 @@ const Add = (props) => {
 
     if (!node.isLeaf) {
       if (checked) {
-        setCheckedPosition([node.key]);
+        setCheckedFooterMenu([node.key]);
       } else {
-        setCheckedPosition([]);
+        setCheckedFooterMenu([]);
       }
     } else {
       setCheckedFooterMenu(checkedKeysValue);
