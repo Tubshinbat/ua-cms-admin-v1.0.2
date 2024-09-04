@@ -469,8 +469,7 @@ const Add = (props) => {
                     <div className="card-body">
                       <Form.Item name="positions">
                         <Tree
-                          treeCheckable
-                          treeCheckStrictly
+                          treeCheckStrictly={true}
                           checkable
                           onExpand={onExpand}
                           expandedKeys={expandedKeys}

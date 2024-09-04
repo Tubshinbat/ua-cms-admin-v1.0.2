@@ -211,8 +211,7 @@ const EmployeePositions = (props) => {
               <div className="col-md-12">
                 <div className={`card card-custom`}>
                   <Tree
-                    treeCheckable
-                    treeCheckStrictly
+                    treeCheckStrictly={true}
                     className="draggable-tree tree-style"
                     // defaultExpandedKeys={expandedKeys}
                     draggable

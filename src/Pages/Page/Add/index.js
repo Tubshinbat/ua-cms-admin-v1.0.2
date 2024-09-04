@@ -193,33 +193,30 @@ const Add = (props) => {
 
   // -- TREE FUNCTIONS
   const onCheckMenu = (values, info) => {
-    const { node } = info;
+    const { checkedNodesPositions } = info;
+    const newCheckedKeys = checkedNodesPositions
+      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
+      .map(({ node }) => node.key);
 
-    if (!node.isLeaf) {
-      setCheckedMenu([node.key]);
-    } else {
-      setCheckedMenu(values);
-    }
+    setCheckedMenu(newCheckedKeys);
   };
 
   const onCheckFooterMenu = (values, info) => {
-    const { node } = info;
+    const { checkedNodesPositions } = info;
+    const newCheckedKeys = checkedNodesPositions
+      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
+      .map(({ node }) => node.key);
 
-    if (!node.isLeaf) {
-      setCheckedFooterMenu([node.key]);
-    } else {
-      setCheckedFooterMenu(values);
-    }
+    setCheckedFooterMenu(newCheckedKeys);
   };
 
   const onCheckPosition = (values, info) => {
-    const { node } = info;
+    const { checkedNodesPositions } = info;
+    const newCheckedKeys = checkedNodesPositions
+      .filter(({ node }) => !node.children) // Зөвхөн эцэг цэсийг сонгоно
+      .map(({ node }) => node.key);
 
-    if (!node.isLeaf) {
-      setCheckedPosition([node.key]);
-    } else {
-      setCheckedPosition(values);
-    }
+    setCheckedPosition(newCheckedKeys);
   };
 
   // Useeffect
@@ -414,8 +411,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="menu">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckMenu}
                                   checkedKeys={checkedMenu}
@@ -436,8 +432,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="footermenu">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckFooterMenu}
                                   checkedKeys={checkedFooterMenu}
@@ -460,8 +455,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="positions">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckPosition}
                                   checkedKeys={checkedPosition}

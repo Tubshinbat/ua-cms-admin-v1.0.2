@@ -178,8 +178,7 @@ const WebSettings = (props) => {
                             </div>
                           </div>
                           <Tree
-                            treeCheckable
-                            treeCheckStrictly
+                            treeCheckStrictly={true}
                             onSelect={onSelect}
                             treeData={treeData}
                           />

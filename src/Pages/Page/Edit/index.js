@@ -452,8 +452,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="menu">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckMenu}
                                   checkedKeys={checkedMenu}
@@ -474,8 +473,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="footermenu">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckFooterMenu}
                                   checkedKeys={checkedFooterMenu}
@@ -498,8 +496,7 @@ const Add = (props) => {
                             >
                               <Form.Item name="positions">
                                 <Tree
-                                  treeCheckable
-                                  treeCheckStrictly
+                                  treeCheckStrictly={true}
                                   checkable
                                   onCheck={onCheckPosition}
                                   checkedKeys={checkedPosition}
