@@ -192,8 +192,9 @@ const Add = (props) => {
   };
 
   // -- TREE FUNCTIONS
-  const onCheckMenu = (checkedKeysValue, info) => {
-    setCheckedMenu(checkedKeysValue);
+  const onCheckMenu = (values, info) => {
+    console.log(values);
+    setCheckedMenu(values);
   };
 
   const onCheckFooterMenu = (checkedKeysValue, info) => {
