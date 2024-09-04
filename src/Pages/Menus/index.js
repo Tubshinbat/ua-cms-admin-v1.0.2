@@ -420,7 +420,6 @@ const SiteMenu = (props) => {
               <div className="col-md-9">
                 <div className={`card card-custom`}>
                   <Tree
-                    checkStrictly={true}
                     className="draggable-tree tree-style"
                     // defaultExpandedKeys={expandedKeys}
                     draggable

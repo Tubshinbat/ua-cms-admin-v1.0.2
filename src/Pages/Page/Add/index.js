@@ -193,16 +193,15 @@ const Add = (props) => {
 
   // -- TREE FUNCTIONS
   const onCheckMenu = (values, info) => {
-    console.log(values);
-    setCheckedMenu(values);
+    setCheckedMenu(values.checked);
   };
 
   const onCheckFooterMenu = (checkedKeysValue, info) => {
-    setCheckedFooterMenu(checkedKeysValue);
+    setCheckedFooterMenu(checkedKeysValue.checked);
   };
 
   const onCheckPosition = (checkedKeysValue, info) => {
-    setCheckedPosition(checkedKeysValue);
+    setCheckedPosition(checkedKeysValue.checked);
   };
 
   // Useeffect

@@ -96,7 +96,7 @@ const Edit = (props) => {
 
   const onCheck = (checkedKeysValue) => {
     // console.log(checkedKeysValue);
-    setCheckedKeys(checkedKeysValue);
+    setCheckedKeys(checkedKeysValue.checked);
   };
 
   const handleRadio = (value, type) => {

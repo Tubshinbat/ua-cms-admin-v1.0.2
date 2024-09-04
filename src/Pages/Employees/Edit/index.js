@@ -509,7 +509,6 @@ const Edit = (props) => {
                     <div className="card-body">
                       <Form.Item name="positions">
                         <Tree
-                          checkStrictly={true}
                           checkable
                           onExpand={onExpand}
                           expandedKeys={expandedKeys}

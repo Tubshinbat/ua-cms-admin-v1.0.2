@@ -88,7 +88,7 @@ const Add = (props) => {
 
   const onCheck = (checkedKeysValue) => {
     // console.log(checkedKeysValue);
-    setCheckedKeys(checkedKeysValue);
+    setCheckedKeys(checkedKeysValue.checked);
   };
 
   const onSelect = (selectedKeysValue, info) => {

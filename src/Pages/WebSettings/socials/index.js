@@ -177,11 +177,7 @@ const WebSettings = (props) => {
                               </button>
                             </div>
                           </div>
-                          <Tree
-                            checkStrictly={true}
-                            onSelect={onSelect}
-                            treeData={treeData}
-                          />
+                          <Tree onSelect={onSelect} treeData={treeData} />
                         </div>
                       </div>
                     </div>
