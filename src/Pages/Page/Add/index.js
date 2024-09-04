@@ -193,15 +193,33 @@ const Add = (props) => {
 
   // -- TREE FUNCTIONS
   const onCheckMenu = (values) => {
-    setCheckedMenu(values);
+    const { node } = info;
+
+    if (!node.isLeaf) {
+      setCheckedMenu([node.key]);
+    } else {
+      setCheckedMenu(values);
+    }
   };
 
   const onCheckFooterMenu = (values) => {
-    setCheckedFooterMenu(values);
+    const { node } = info;
+
+    if (!node.isLeaf) {
+      setCheckedFooterMenu([node.key]);
+    } else {
+      setCheckedFooterMenu(values);
+    }
   };
 
-  const onCheckPosition = (values) => {
-    setCheckedPosition(values);
+  const onCheckPosition = (values, info) => {
+    const { node } = info;
+
+    if (!node.isLeaf) {
+      setCheckedPosition([node.key]);
+    } else {
+      setCheckedPosition(values);
+    }
   };
 
   // Useeffect
