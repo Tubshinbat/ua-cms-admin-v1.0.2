@@ -193,45 +193,15 @@ const Add = (props) => {
 
   // -- TREE FUNCTIONS
   const onCheckMenu = (checkedKeysValue, info) => {
-    const { checked, node } = info;
-
-    if (!node.isLeaf) {
-      if (checked) {
-        setCheckedMenu([node.key]);
-      } else {
-        setCheckedMenu([]);
-      }
-    } else {
-      setCheckedMenu(checkedKeysValue);
-    }
+    setCheckedMenu(checkedKeysValue);
   };
 
   const onCheckFooterMenu = (checkedKeysValue, info) => {
-    const { checked, node } = info;
-
-    if (!node.isLeaf) {
-      if (checked) {
-        setCheckedFooterMenu([node.key]);
-      } else {
-        setCheckedFooterMenu([]);
-      }
-    } else {
-      setCheckedFooterMenu(checkedKeysValue);
-    }
+    setCheckedFooterMenu(checkedKeysValue);
   };
 
   const onCheckPosition = (checkedKeysValue, info) => {
-    const { checked, node } = info;
-
-    if (!node.isLeaf) {
-      if (checked) {
-        setCheckedPosition([node.key]);
-      } else {
-        setCheckedPosition([]);
-      }
-    } else {
-      setCheckedPosition(checkedKeysValue);
-    }
+    setCheckedPosition(checkedKeysValue);
   };
 
   // Useeffect

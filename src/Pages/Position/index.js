@@ -309,7 +309,7 @@ const Position = (props) => {
               <div className="col-md-9">
                 <div className={`card card-custom`}>
                   <Tree
-                    treeCheckStrictly={true}
+                    checkStrictly={true}
                     className="draggable-tree tree-style"
                     // defaultExpandedKeys={expandedKeys}
                     blockNode
