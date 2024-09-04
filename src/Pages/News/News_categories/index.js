@@ -311,6 +311,8 @@ const NewsCategories = (props) => {
               <div className="col-md-9">
                 <div className={`card card-custom`}>
                   <Tree
+                    treeCheckable
+                    treeCheckStrictly
                     className="draggable-tree tree-style"
                     // defaultExpandedKeys={expandedKeys}
                     draggable

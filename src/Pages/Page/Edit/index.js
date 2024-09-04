@@ -330,7 +330,6 @@ const Add = (props) => {
                             getValueFromEvent={(e) =>
                               e.target && e.target.getContent()
                             }
-
                           >
                             <Editor
                               apiKey="2nubq7tdhudthiy6wfb88xgs36os4z3f4tbtscdayg10vo1o"
@@ -453,6 +452,8 @@ const Add = (props) => {
                             >
                               <Form.Item name="menu">
                                 <Tree
+                                  treeCheckable
+                                  treeCheckStrictly
                                   checkable
                                   onCheck={onCheckMenu}
                                   checkedKeys={checkedMenu}
@@ -473,6 +474,8 @@ const Add = (props) => {
                             >
                               <Form.Item name="footermenu">
                                 <Tree
+                                  treeCheckable
+                                  treeCheckStrictly
                                   checkable
                                   onCheck={onCheckFooterMenu}
                                   checkedKeys={checkedFooterMenu}
@@ -495,6 +498,8 @@ const Add = (props) => {
                             >
                               <Form.Item name="positions">
                                 <Tree
+                                  treeCheckable
+                                  treeCheckStrictly
                                   checkable
                                   onCheck={onCheckPosition}
                                   checkedKeys={checkedPosition}
