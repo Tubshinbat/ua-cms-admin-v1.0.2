@@ -100,6 +100,11 @@ const Edit = (props) => {
       return;
     }
 
+    if (picture && picture.name) values.picture = picture.name;
+    else {
+      values.picture = "";
+    }
+
     if (deleteFiles && deleteFiles.length > 0) {
       deleteFiles.map(async (picture) => {
         await axios.delete("/imgupload", { data: { file: picture.name } });
@@ -108,7 +113,6 @@ const Edit = (props) => {
 
     const data = {
       ...values,
-      picture: picture ? picture : "",
       positions: [...checkedKeys],
     };
 
@@ -165,6 +169,8 @@ const Edit = (props) => {
         const dfile = deleteFiles.push(picture);
         setDeleteFiles(dfile);
       }
+
+      setPicture(img);
 
       onSuccess("Ok");
       message.success(res.data.data + " Хуулагдлаа");

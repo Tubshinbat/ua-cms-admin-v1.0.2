@@ -97,10 +97,9 @@ const Add = (props) => {
       toastControl("error", "Хэлтэс, алба сонгоно уу");
       return;
     }
-
+    if (picture && picture.name) values.picture = picture.name;
     const data = {
       ...values,
-      picture: picture ? picture : "",
       positions: [...checkedKeys],
     };
 
