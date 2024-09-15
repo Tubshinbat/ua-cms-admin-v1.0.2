@@ -169,11 +169,7 @@ const Employee = (props) => {
         return (
           <div className="table-image">
             {record.picture ? (
-              record.picture.length > 0 ? (
-                <img src={`${base.cdnUrl}150x150/${record.picture[0]}`} />
-              ) : (
-                <img src={`${base.cdnUrl}150x150/${record.picture}`} />
-              )
+              <img src={`${base.cdnUrl}150x150/${record.picture}`} />
             ) : (
               "Зураг оруулаагүй байна"
             )}
