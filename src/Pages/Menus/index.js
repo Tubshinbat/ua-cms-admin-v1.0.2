@@ -23,6 +23,7 @@ import Loader from "../../Components/Generals/Loader";
 import Dragger from "antd/lib/upload/Dragger";
 import base from "../../base";
 import { useCookies } from "react-cookie";
+import TextArea from "antd/lib/input/TextArea";
 
 const requiredRule = {
   required: true,
@@ -35,14 +36,17 @@ const SiteMenu = (props) => {
   // STATES
   const [gData, setGData] = useState([]);
   const [cookies] = useCookies(["language"]);
-  // const [expandedKeys] = useState(["0-0", "0-0-0", "0-0-0-0"]);
+
   const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState([]);
+  const [picture, setPicture] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [selectData, setSelectData] = useState(null);
   const [isModel, setIsModel] = useState(false);
   const [isDirect, setIsDirect] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(true);
   const [cover, setCover] = useState({});
+  const [modal, setModal] = useState(null);
 
   const menuGenerateData = (categories) => {
     let datas = [];
@@ -67,13 +71,7 @@ const SiteMenu = (props) => {
     return datas;
   };
 
-  const [visible, setVisible] = useState({
-    edit: false,
-    add: false,
-    delete: false,
-    parent: false,
-  });
-  const [isParent, setIsParent] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // USEEFFECTS
   useEffect(() => {
@@ -135,7 +133,11 @@ const SiteMenu = (props) => {
     form.resetFields();
     setIsDirect(false);
     setIsModel(false);
-    setCover();
+    setSelectedStatus(true);
+    setPicture(null);
+    setSelect(null);
+    setSelectData(null);
+    setModal(null);
   };
 
   const onDragEnter = (info) => {
@@ -256,71 +258,141 @@ const SiteMenu = (props) => {
     handleCancel();
   };
 
-  // -- MODAL SHOW AND CLOSE
-  const showModal = (modal) => {
-    switch (modal) {
-      case "delete": {
-        if (select && select.length === 1) {
-          setVisible((sb) => ({ ...sb, [modal]: true }));
-        } else {
-          toastControl("error", "Нэг өгөгдөл сонгоно уу");
-        }
-        break;
-      }
-      case "parent": {
-        if (select && select.length === 1) {
-          setVisible((sb) => ({ ...sb, [modal]: true }));
-          setCover();
-        } else {
-          toastControl("error", "Нэг өгөгдөл сонгоно уу");
-        }
-        break;
-      }
-      case "edit": {
-        if (select && select.length === 1) {
-          form.setFieldsValue({
-            ...props.category,
-            name:
-              props.category[cookies.language] &&
-              props.category[cookies.language].name,
-          });
-          setIsDirect(props.category.isDirect);
-          setIsModel(props.category.isModel);
-          setSelectedStatus(props.category.status);
-          if (props.category.cover) {
-            const url = base.cdnUrl + props.category.cover;
-            const img = {
-              name: props.category.cover,
-              url,
-            };
-            setCover(img);
-          }
-          setVisible((sb) => ({ ...sb, [modal]: true }));
-        } else {
-          toastControl("error", "Нэг өгөгдөл сонгоно уу");
-        }
-        break;
-      }
-      default: {
-        setVisible((sb) => ({ ...sb, [modal]: true }));
-        setCover();
-        break;
-      }
+  const setData = () => {
+    form.setFieldsValue({
+      ...props.category,
+      name:
+        props.category[cookies.language] &&
+        props.category[cookies.language].name,
+      short:
+        props.category[cookies.language] &&
+        props.category[cookies.language].short,
+    });
+
+    setSelectedStatus(props.category.status);
+    setIsDirect(props.category.isDirect);
+    setIsModel(props.category.isModel);
+
+    if (props.category) {
+      const { picture } = props.category;
+      setPicture({
+        name: picture,
+        url: base.cdnUrl + "/150x150/" + picture,
+      });
     }
   };
 
+  // -- MODAL SHOW AND CLOSE
+  const showModal = (modal) => {
+    setModal(modal);
+    if (modal != "add") {
+      if (select?.length && select.length === 1) {
+      } else {
+        toastControl("error", "Нэг өгөгдөл сонгоно уу");
+        return false;
+      }
+    }
+
+    if (modal == "edit") {
+      setData();
+    }
+    if (modal != "delete") {
+      setVisible(true);
+    }
+
+    // switch (modal) {
+    //   case "delete": {
+    //     if (select && select.length === 1) {
+    //       setVisible((sb) => ({ ...sb, [modal]: true }));
+    //     } else {
+    //       toastControl("error", "Нэг өгөгдөл сонгоно уу");
+    //     }
+    //     break;
+    //   }
+    //   case "parent": {
+    //     if (select && select.length === 1) {
+    //       setVisible((sb) => ({ ...sb, [modal]: true }));
+    //       setCover();
+    //     } else {
+    //       toastControl("error", "Нэг өгөгдөл сонгоно уу");
+    //     }
+    //     break;
+    //   }
+    //   case "edit": {
+    //     if (select && select.length === 1) {
+    //       form.setFieldsValue({
+    //         ...props.category,
+    //         name:
+    //           props.category[cookies.language] &&
+    //           props.category[cookies.language].name,
+    //       });
+    //       setIsDirect(props.category.isDirect);
+    //       setIsModel(props.category.isModel);
+    //       setSelectedStatus(props.category.status);
+    //       if (props.category.cover) {
+    //         const url = base.cdnUrl + props.category.cover;
+    //         const img = {
+    //           name: props.category.cover,
+    //           url,
+    //         };
+    //         setCover(img);
+    //       }
+    //       setVisible((sb) => ({ ...sb, [modal]: true }));
+    //     } else {
+    //       toastControl("error", "Нэг өгөгдөл сонгоно уу");
+    //     }
+    //     break;
+    //   }
+    //   default: {
+    //     setVisible((sb) => ({ ...sb, [modal]: true }));
+    //     setCover();
+    //     break;
+    //   }
+    // }
+  };
+
+  const handleSubmit = (values) => {
+    if (!picture?.name) {
+      toastControl("error", "Зураг оруулна уу");
+      return false;
+    }
+
+    const data = {
+      ...values,
+      isDirect,
+      isModel,
+      status: selectedStatus,
+      picture: picture?.name,
+    };
+
+    console.log(data);
+
+    if (selectData?._id && modal == "parent") data.parentId = selectData._id;
+
+    switch (modal) {
+      case "add":
+        props.saveMenu(data);
+        break;
+      case "parent":
+        props.saveMenu(data);
+        break;
+      case "edit":
+        props.updateMenu(data, select[0]);
+        break;
+    }
+
+    handleCancel();
+  };
+
   const handleCancel = () => {
-    setVisible((sb) => Object.keys(sb).map((el) => (sb[el] = false)));
+    setVisible(false);
     clear();
   };
 
-  const handleRemove = (stType, file) => {
-    let index;
-
-    setCover({});
-
+  const handleRemove = () => {
+    setPicture(null);
     axios
-      .delete("/imgupload", { data: { file: file.name } })
+      .delete("/imgupload", { data: { file: picture.name } })
       .then((succ) => {
         toastControl("success", "Амжилттай файл устгагдлаа");
       })
@@ -336,6 +408,10 @@ const SiteMenu = (props) => {
       headers: { "content-type": "multipart/form-data" },
       onUploadProgress: (event) => {
         const percent = Math.floor((event.loaded / event.total) * 100);
+        setProgress(percent);
+        if (percent === 100) {
+          setTimeout(() => setProgress(0), 1000);
+        }
         onProgress({ percent: (event.loaded / event.total) * 100 });
       },
     };
@@ -347,8 +423,13 @@ const SiteMenu = (props) => {
         name: res.data.data,
         url: `${base.cdnUrl}${res.data.data}`,
       };
-      setCover(img);
 
+      setPicture((bp) => {
+        if (bp && bp.name) {
+          axios.delete("/imgupload", { data: { file: bp.name } });
+        }
+        return img;
+      });
       onSuccess("Ok");
       message.success(res.data.data + " Хуулагдлаа");
       return img;
@@ -357,6 +438,16 @@ const SiteMenu = (props) => {
       onError({ err });
       return false;
     }
+  };
+
+  const uploadOptions = {
+    onRemove: (file) => handleRemove(file),
+    fileList: picture && picture.name && [picture],
+    customRequest: uploadImage,
+    accept: "image/*",
+    name: "picture",
+    listType: "picture",
+    maxCount: 1,
   };
 
   return (
@@ -435,8 +526,170 @@ const SiteMenu = (props) => {
           </div>
         </div>
       </div>
-      {/* Add category */}
+
       <Modal
+        visible={visible}
+        title="Ангилал"
+        onCancel={() => handleCancel()}
+        footer={[
+          <Button key="back" onClick={() => handleCancel()}>
+            Хаах
+          </Button>,
+          <Button
+            loading={props.loading}
+            key="submit"
+            htmlType="submit"
+            type="primary"
+            onClick={() => {
+              form
+                .validateFields()
+                .then((values) => handleSubmit(values))
+                .catch((error) => console.log(error));
+            }}
+          >
+            Хадгалах
+          </Button>,
+        ]}
+      >
+        <Form layout="vertical" form={form}>
+          <div className="row">
+            <div className="col-md-4">
+              <Form.Item label="Идэвхтэй эсэх" name="status">
+                <Switch
+                  onChange={(value) => setSelectedStatus(value)}
+                  checked={selectedStatus}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-md-4">
+              <Form.Item label="Линк холбох" name="isDirect">
+                <Switch
+                  checked={isDirect}
+                  onChange={(value) => {
+                    isModel === false
+                      ? setIsDirect(value)
+                      : toastControl(
+                          "error",
+                          "Нэг модал, линк хоёрын аль нэгийг сонгоно уу"
+                        );
+                  }}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-md-4">
+              <Form.Item label="Модал холбох" name="isModel">
+                <Switch
+                  checked={isModel}
+                  onChange={(value) => {
+                    isDirect === false
+                      ? setIsModel(value)
+                      : toastControl(
+                          "error",
+                          "Нэг модал, линк хоёрын аль нэгийг сонгоно уу"
+                        );
+                  }}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-md-12">
+              <Form.Item label="Цэсний нэр" name="name" rules={[requiredRule]}>
+                <Input placeholder="Цэсний нэрийг оруулна уу" />
+              </Form.Item>
+            </div>
+            <div className="col-md-12">
+              <Form.Item label="Цэсний товч тайлбар" name="short">
+                <TextArea />
+              </Form.Item>
+            </div>
+            <div
+              className="col-md-12"
+              style={{ display: isDirect == true ? "block" : "none" }}
+            >
+              <Form.Item
+                label="Үсрэх линк"
+                name="direct"
+                rules={isDirect === true && [requiredRule]}
+              >
+                <Input placeholder="Холбох линкээ оруулна уу" />
+              </Form.Item>
+            </div>
+            <div
+              className="col-md-12"
+              style={{ display: isModel == true ? "block" : "none" }}
+            >
+              <Form.Item
+                label="Модал сонгох"
+                name="model"
+                rules={isModel === true && [requiredRule]}
+              >
+                <Select
+                  placeholder="Модал сонгох"
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={[
+                    {
+                      value: "news",
+                      label: "Мэдээ мэдээлэл",
+                    },
+                    {
+                      value: "employee",
+                      label: "Ажилчид",
+                    },
+                    {
+                      value: "contact",
+                      label: "Холбоо барих",
+                    },
+                  ]}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-md-12">
+              <Dragger {...uploadOptions} className="upload-list-inline">
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Зургаа энэ хэсэг рүү чирч оруулна уу
+                </p>
+                <p className="ant-upload-hint">
+                  Нэг болон түүнээс дээш файл хуулах боломжтой
+                </p>
+              </Dragger>
+            </div>
+          </div>
+        </Form>
+      </Modal>
+
+      <Modal
+        visible={modal == "delete"}
+        title="Устгах"
+        onCancel={() => handleCancel()}
+        footer={[
+          <Button key="back" onClick={() => handleCancel()}>
+            Буцах
+          </Button>,
+          <Button
+            loading={props.loading}
+            key="submit"
+            htmlType="submit"
+            type="danger"
+            onClick={() => deleteMenu()}
+          >
+            Устгах
+          </Button>,
+        ]}
+      >
+        <p>
+          Та <b> {selectData && selectData.name} </b> - ангилалыг устгахдаа
+          итгэлтэй байна уу?{" "}
+        </p>
+      </Modal>
+
+      {/* Add category */}
+      {/* <Modal
         visible={visible && visible.add}
         title="Ангилал нэмэх"
         onCancel={() => handleCancel()}
@@ -510,6 +763,11 @@ const SiteMenu = (props) => {
                 <Input placeholder="Цэсний нэрийг оруулна уу" />
               </Form.Item>
             </div>
+            <div className="col-12">
+              <Form.Item label="Цэсний товч тайлбар" name="short">
+                <TextArea />
+              </Form.Item>
+            </div>
             <div
               className="col-12"
               style={{ display: isDirect == true ? "block" : "none" }}
@@ -555,11 +813,24 @@ const SiteMenu = (props) => {
                 />
               </Form.Item>
             </div>
+            <div className="col-md-12">
+              <Dragger className="upload-list-inline">
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Зургаа энэ хэсэг рүү чирч оруулна уу
+                </p>
+                <p className="ant-upload-hint">
+                  Нэг болон түүнээс дээш файл хуулах боломжтой
+                </p>
+              </Dragger>
+            </div>
           </div>
         </Form>
-      </Modal>
+      </Modal> */}
       {/* Parent category */}
-      <Modal
+      {/* <Modal
         visible={visible && visible.parent}
         title="Дэд ангилал нэмэх"
         onCancel={() => handleCancel()}
@@ -684,9 +955,9 @@ const SiteMenu = (props) => {
             </div>
           </div>
         </Form>
-      </Modal>
+      </Modal> */}
       {/* Edit Category */}
-      <Modal
+      {/* <Modal
         visible={visible && visible.edit}
         title="Ангилал засах"
         onCancel={() => handleCancel()}
@@ -805,33 +1076,23 @@ const SiteMenu = (props) => {
                 />
               </Form.Item>
             </div>
+            <div className="col-md-12">
+              <Dragger className="upload-list-inline">
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Зургаа энэ хэсэг рүү чирч оруулна уу
+                </p>
+                <p className="ant-upload-hint">
+                  Нэг болон түүнээс дээш файл хуулах боломжтой
+                </p>
+              </Dragger>
+            </div>
           </div>
         </Form>
       </Modal>
-      <Modal
-        visible={visible && visible.delete}
-        title="Устгах"
-        onCancel={() => handleCancel()}
-        footer={[
-          <Button key="back" onClick={() => handleCancel()}>
-            Буцах
-          </Button>,
-          <Button
-            loading={props.loading}
-            key="submit"
-            htmlType="submit"
-            type="danger"
-            onClick={() => deleteMenu()}
-          >
-            Устгах
-          </Button>,
-        ]}
-      >
-        <p>
-          Та <b> {selectData && selectData.name} </b> - ангилалыг устгахдаа
-          итгэлтэй байна уу?{" "}
-        </p>
-      </Modal>
+      */}
     </>
   );
 };

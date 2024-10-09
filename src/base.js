@@ -1,8 +1,8 @@
 const base = {
   // siteUrl: "http://localhost:3000/",
   // baseUrl: "http://localhost:3001/",
-  // cdnUrl: "https://naog.lvg.mn/rest/uploads/",
-  // apiUrl: "http://localhost:2004/v1/api/",
+  // cdnUrl: "http://localhost:1000/uploads/",
+  // apiUrl: "http://localhost:1000/v1/api/",
   cdnUrl: "https://naog.gov.mn/uploads/",
   baseUrl: "https://adw.naog.edu.mn/",
   siteUrl: "https://naog.gov.mn/",

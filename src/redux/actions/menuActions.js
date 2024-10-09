@@ -195,20 +195,23 @@ export const saveMenu = (menu) => {
       status: menu.status,
       isDirect: menu.isDirect,
       isModel: menu.isModel,
+      short: menu.short,
       model: menu.model,
       direct: menu.direct,
-      cover: menu.cover,
+      picture: menu.picture,
     };
 
     if (menu.parentId !== null) {
       data = {
         name: menu.name,
+        status: menu.status,
         parentId: menu.parentId,
         isDirect: menu.isDirect,
         isModel: menu.isModel,
         model: menu.model,
         direct: menu.direct,
-        cover: menu.cover,
+        picture: menu.picture,
+        short: menu.short,
       };
     }
 
@@ -252,6 +255,8 @@ export const saveMenuError = (error) => {
 
 export const updateMenu = (menu, id) => {
   return function (dispatch) {
+    console.log(menu);
+    console.log(id);
     dispatch(updateMenuStart());
 
     axios
